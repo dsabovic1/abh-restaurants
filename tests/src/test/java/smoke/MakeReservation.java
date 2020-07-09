@@ -9,7 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class MakeReservation extends TestBase {
-
     private static final String FIRST_NAME = "Alice";
     private static final String LAST_NAME = "Lopez";
     private static final String EMAIL = "alic5@live.com";
@@ -72,11 +71,11 @@ public class MakeReservation extends TestBase {
     }
 
     @Test(priority = 7)
-    public void loginToRestaurantsPage() {
+    public void login() {
         SimpleDateFormat formatter = new SimpleDateFormat("ddMMHHmm");
         Date date = new Date();
         new LoginPage(driver)
-                .loginToRestaurants(formatter.format(date) + EMAIL, PASSWORD);
+                .login(formatter.format(date) + EMAIL, PASSWORD);
     }
 
     @Test(priority = 8)
@@ -99,7 +98,6 @@ public class MakeReservation extends TestBase {
 
     @Test(priority = 11)
     public void makeAReservation() {
-        System.out.println("Date:" + DATE_OF_RESERVATION);
         new RestaurantPage(driver).findTable(NUMBER_OF_PERSONS, DATE_OF_RESERVATION, TIME_OF_RESERVATION);
     }
 

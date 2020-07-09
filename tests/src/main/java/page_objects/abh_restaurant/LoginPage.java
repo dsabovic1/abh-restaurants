@@ -51,7 +51,7 @@ public class LoginPage extends PageBase {
         return new Registration(getDriver());
     }
 
-    public HomePage loginToRestaurants(String email, String password) {
+    public HomePage login(String email, String password) {
         getEmailInputField().sendKeys(email);
         getPasswordInputField().sendKeys(password);
         getLoginButton().click();

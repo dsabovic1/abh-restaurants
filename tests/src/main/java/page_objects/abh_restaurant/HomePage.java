@@ -50,6 +50,11 @@ public class HomePage extends PageBase {
         return new UserDetails(getDriver());
     }
 
+    public AdminPage clickAdminPage(int index){
+        getNavBarList().get(index).click();
+        return new AdminPage(getDriver());
+    }
+
     public Boolean checkMainText(String headerText){
         return headerText.equals(getMainText().getText());
     }
