@@ -8,6 +8,7 @@ const { alias } = computed;
 
 export default Controller.extend({
   restaurantService: service("restaurant-service"),
+  activitylogsService: service("activitylogs-service"),
 
   /**
    * Progress of an image-upload process.
@@ -17,25 +18,25 @@ export default Controller.extend({
 
   restaurant: alias("model.restaurant"),
 
-  profileImageStyle: computed("restaurant.profileImagePath", function() {
+  profileImageStyle: computed("restaurant.profileImagePath", function () {
     return htmlSafe(
       "background-image: url(" + this.get("restaurant.profileImagePath") + ")"
     );
   }),
 
-  coverImageStyle: computed("restaurant.coverImagePath", function() {
+  coverImageStyle: computed("restaurant.coverImagePath", function () {
     return htmlSafe(
       "background-image: url(" + this.get("restaurant.coverImagePath") + ")"
     );
   }),
 
-  cuisines: computed("model.cuisines", function() {
-    return this.get("model.cuisines.content").map(cuisine => cuisine.name);
+  cuisines: computed("model.cuisines", function () {
+    return this.get("model.cuisines.content").map((cuisine) => cuisine.name);
   }),
 
-  selectedCuisines: computed("model.restaurant.cuisines", function() {
+  selectedCuisines: computed("model.restaurant.cuisines", function () {
     return (this.get("model.restaurant.cuisines") || []).map(
-      cuisine => cuisine.name
+      (cuisine) => cuisine.name
     );
   }),
 
@@ -50,7 +51,7 @@ export default Controller.extend({
     set(property, value) {
       this.set("model.restaurant.openTime", timeStringToDate(value));
       return value;
-    }
+    },
   }),
 
   closeTime: computed("model.restaurant.closeTime", {
@@ -64,7 +65,7 @@ export default Controller.extend({
     set(property, value) {
       this.set("model.restaurant.closeTime", timeStringToDate(value));
       return value;
-    }
+    },
   }),
 
   actions: {
@@ -94,7 +95,7 @@ export default Controller.extend({
       tables.pushObject({
         id: null,
         restaurantId: this.get("model.restaurant.id"),
-        numberOfChairs: 0
+        numberOfChairs: 0,
       });
     },
 
@@ -117,7 +118,7 @@ export default Controller.extend({
         id: null,
         name: "",
         description: "",
-        price: 0
+        price: 0,
       });
     },
 
@@ -134,7 +135,7 @@ export default Controller.extend({
         id: null,
         name: "",
         description: "",
-        price: 0
+        price: 0,
       });
     },
 
@@ -151,7 +152,7 @@ export default Controller.extend({
         id: null,
         name: "",
         description: "",
-        price: 0
+        price: 0,
       });
     },
 
@@ -171,15 +172,11 @@ export default Controller.extend({
       if (this.get("marker")) {
         this.set(
           "model.restaurant.latitude",
-          this.get("marker")
-            .getPosition()
-            .lat()
+          this.get("marker").getPosition().lat()
         );
         this.set(
           "model.restaurant.longitude",
-          this.get("marker")
-            .getPosition()
-            .lng()
+          this.get("marker").getPosition().lng()
         );
       }
 
@@ -229,14 +226,14 @@ export default Controller.extend({
       );
       let selectedCuisines = this.get("selectedCuisines");
       selectedCuisines = selectedCuisines.map(
-        cuisineName => cuisineCache[cuisineName]
+        (cuisineName) => cuisineCache[cuisineName]
       );
 
       this.set("model.restaurant.cuisines", selectedCuisines);
 
       const id = this.get("model.restaurant.id");
       let isCreating = typeof id === "undefined";
-
+      const restaurantName = this.get("model.restaurant.name");
       if (isCreating) {
         this.get("restaurantService")
           .create(this.get("model.restaurant"))
@@ -245,9 +242,13 @@ export default Controller.extend({
         this.get("restaurantService")
           .update(id, this.get("model.restaurant"))
           .then(() => this.transitionToRoute("admin.restaurants"));
+        this.get("activitylogsService").create({
+          user: "Admin",
+          action: "Restaurant " + restaurantName + " updated",
+        });
       }
-    }
-  }
+    },
+  },
 
   // actions: {
 

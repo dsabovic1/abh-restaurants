@@ -203,3 +203,6 @@ BEFORE UPDATE ON restaurant_photo
 FOR EACH ROW
 EXECUTE PROCEDURE update_table_timestamps();
 
+
+
+

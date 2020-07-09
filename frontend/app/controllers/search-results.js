@@ -8,7 +8,7 @@ export default Controller.extend({
     restaurantName: "name",
     numberOfPeople: "people",
     time: "time",
-    page: "page"
+    page: "page",
   },
   restaurantName: "",
   numberOfPeople: 0,
@@ -19,14 +19,14 @@ export default Controller.extend({
     onReserve(restaurantId, numberOfPeople, time) {
       const reservationRequest = {
         numberOfPeople,
-        date: new Date(time)
+        date: new Date(time),
       };
 
       this.get("restaurantService")
         .createReservation(restaurantId, reservationRequest)
-        .then(response =>
+        .then((response) =>
           this.transitionToRoute("reservation-details", response.id)
         );
-    }
-  }
+    },
+  },
 });

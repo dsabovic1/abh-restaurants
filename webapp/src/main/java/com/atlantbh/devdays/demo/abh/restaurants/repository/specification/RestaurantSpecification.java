@@ -2,21 +2,19 @@ package com.atlantbh.devdays.demo.abh.restaurants.repository.specification;
 
 import com.atlantbh.devdays.demo.abh.restaurants.domain.Restaurant;
 import com.atlantbh.devdays.demo.abh.restaurants.service.requests.RestaurantFilter;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
-
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
+
 
 /** Restaurant filter specification. */
 public class RestaurantSpecification implements Specification<Restaurant> {
-  private final RestaurantFilter filter;
+  private RestaurantFilter filter;
 
   /**
    * Instantiates a new restaurant specification.
@@ -29,8 +27,9 @@ public class RestaurantSpecification implements Specification<Restaurant> {
 
   @Override
   public Predicate toPredicate(
-      Root<Restaurant> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-      return cb.equal(root.<Integer> get("priceRange"), filter.getPrice());
+      Root<Restaurant> root, CriteriaQuery<?> criteria, CriteriaBuilder builder) {
+   if (filter.getPrice()!=null) return builder.equal(root.get("priceRange"), filter.getPrice());
+return null;
   }
 
   /**
