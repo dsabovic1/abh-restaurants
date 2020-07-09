@@ -10,6 +10,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 /** Restaurant filter specification. */
 public class RestaurantSpecification implements Specification<Restaurant> {
@@ -26,8 +29,8 @@ public class RestaurantSpecification implements Specification<Restaurant> {
 
   @Override
   public Predicate toPredicate(
-      Root<Restaurant> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
-    return null;
+      Root<Restaurant> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
+      return cb.equal(root.<Integer> get("priceRange"), filter.getPrice());
   }
 
   /**

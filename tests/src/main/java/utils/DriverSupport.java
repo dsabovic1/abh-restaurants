@@ -32,7 +32,7 @@ public class DriverSupport {
             options.addArguments("headless");
             options.addArguments("--start-maximized");
             DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setCapability("acceptInsecureCerts",true);
+            capabilities.setCapability("acceptInsecureCerts", true);
             driver = new FirefoxDriver(capabilities);
 
         } else if (browser.equals("chrome")) {

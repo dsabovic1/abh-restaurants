@@ -16,14 +16,20 @@ public class MakeReservation extends TestBase {
     private static final String ADDRESS = "Pijacna 118";
     private static final String PASSWORD = "1234";
     private static final String HEADER_TEXT = "Make a free reservation";
-    private static final Integer NUMBER_OF_PERSONS = 1;
+    private static final Integer NUMBER_OF_PERSONS = 4;
     private static final String  DATE_OF_RESERVATION= getDate();
     private static final String  TIME_OF_RESERVATION= "12:00";
+    private static final String AVAILABILITY_MESSAGE = getAvailabilityMessage();
+    private String newEmail;
 
     private static String getDate() {
-        SimpleDateFormat formatter = new SimpleDateFormat("ddMMYYYY"); //TODO: fix this, keys not sent
+        SimpleDateFormat formatter = new SimpleDateFormat("YYYY-MM-dd");
         Date date = new Date();
         return formatter.format(date);
+    }
+
+    private static String getAvailabilityMessage() {
+        return "Availability on " + getDate() + " around " + TIME_OF_RESERVATION +" for "+ NUMBER_OF_PERSONS.toString() + " People:";
     }
 
     @Test(priority = 0)
@@ -42,8 +48,9 @@ public class MakeReservation extends TestBase {
     public void populateRegistrationForm() {
         SimpleDateFormat formatter = new SimpleDateFormat("ddMMHHmm");
         Date date = new Date();
+        newEmail = formatter.format(date) + EMAIL;
         new Registration(driver)
-                .makeRegistration(FIRST_NAME, LAST_NAME, formatter.format(date) + EMAIL, PHONE_NUMBER, ADDRESS, PASSWORD, PASSWORD);
+                .makeRegistration(FIRST_NAME, LAST_NAME, newEmail, PHONE_NUMBER, ADDRESS, PASSWORD, PASSWORD);
     }
 
     @Test(priority = 3)
@@ -75,7 +82,7 @@ public class MakeReservation extends TestBase {
         SimpleDateFormat formatter = new SimpleDateFormat("ddMMHHmm");
         Date date = new Date();
         new LoginPage(driver)
-                .login(formatter.format(date) + EMAIL, PASSWORD);
+                .login(newEmail, PASSWORD);
     }
 
     @Test(priority = 8)
@@ -99,6 +106,16 @@ public class MakeReservation extends TestBase {
     @Test(priority = 11)
     public void makeAReservation() {
         new RestaurantPage(driver).findTable(NUMBER_OF_PERSONS, DATE_OF_RESERVATION, TIME_OF_RESERVATION);
+    }
+
+    @Test(priority = 12)
+    public void checkIfAvailabilityDisplayed() {
+        Assert.assertTrue(new RestaurantPage(driver).checkIfAvailabilityDisplayed());
+    }
+
+    @Test(priority = 13)
+    public void checkIfAvailabilityMessageCorrect() {
+        Assert.assertTrue(new RestaurantPage(driver).isAvailabilityMessageCorrect(AVAILABILITY_MESSAGE));
     }
 
 }

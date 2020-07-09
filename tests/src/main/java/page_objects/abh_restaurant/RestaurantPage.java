@@ -12,6 +12,7 @@ public class RestaurantPage extends PageBase {
     final static private String TIME_INPUT_CSS = "form[class = 'reservation-form'] input[type='time']";
     final static private String FIND_TABLE_BUTTON_CSS = "form[class = 'reservation-form'] button[type='submit']";
     final static private String MAP_CSS = "iframe[class='restaurant-map']";
+    final static private String AVAILABILITY_MESSAGE_CSS = "h3[class='restaurant-reservation-availability']";
 
     public RestaurantPage(WebDriver driver) {
         super(driver, PAGE_URL_REGEX);
@@ -32,6 +33,9 @@ public class RestaurantPage extends PageBase {
 
     @FindBy(css = MAP_CSS)
     private WebElement map;
+
+    @FindBy(css = AVAILABILITY_MESSAGE_CSS)
+    private WebElement availabilityMessage;
 
     public WebElement getFindTableButton() {
         return findTableButton;
@@ -54,6 +58,7 @@ public class RestaurantPage extends PageBase {
     }
 
     public RestaurantPage findTable(Integer numberOfPersons, String date, String time) {
+        getPersonsDropdown().sendKeys(numberOfPersons.toString());
         getDateInput().sendKeys(date);
         getTimeInput().sendKeys(time);
         getFindTableButton().click();
@@ -62,5 +67,13 @@ public class RestaurantPage extends PageBase {
 
     public Boolean isMapDisplayed() {
         return map.isDisplayed();
+    }
+
+    public Boolean checkIfAvailabilityDisplayed() {
+        return availabilityMessage.isDisplayed();
+    }
+
+    public Boolean isAvailabilityMessageCorrect(String expectedMessage) {
+        return expectedMessage.equals(availabilityMessage.getText());
     }
 }

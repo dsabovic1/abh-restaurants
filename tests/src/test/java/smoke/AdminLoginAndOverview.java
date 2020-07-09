@@ -28,7 +28,7 @@ public class AdminLoginAndOverview extends TestBase {
     }
 
     @Test(priority = 2)
-    public void checkUserIsRegistered(){
+    public void checkUserIsRegistered() {
         Assert.assertTrue(new HomePage(driver)
                 .checkMainText(HEADER_TEXT));
     }
@@ -37,5 +37,10 @@ public class AdminLoginAndOverview extends TestBase {
     public void openUserDetails() {
         new HomePage(driver)
                 .clickAdminPage(2);
+    }
+
+    @Test(priority = 4)
+    public void checkStatistics() {
+        Assert.assertTrue(new AdminPage(driver).checkIfStatisticsDisplayed());
     }
 }

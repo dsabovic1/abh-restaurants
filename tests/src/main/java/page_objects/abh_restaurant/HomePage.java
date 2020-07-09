@@ -19,7 +19,6 @@ public class HomePage extends PageBase {
         initElements();
     }
 
-
     @FindBy(css = NAV_BAR_LIST_CSS)
     private List<WebElement> navBarList;
 
