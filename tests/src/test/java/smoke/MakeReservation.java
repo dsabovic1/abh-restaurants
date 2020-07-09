@@ -17,10 +17,18 @@ public class MakeReservation extends TestBase {
     private static final String ADDRESS = "Pijacna 118";
     private static final String PASSWORD = "1234";
     private static final String HEADER_TEXT = "Make a free reservation";
+    private static final Integer NUMBER_OF_PERSONS = 1;
+    private static final String  DATE_OF_RESERVATION= getDate();
+    private static final String  TIME_OF_RESERVATION= "12:00";
 
+    private static String getDate() {
+        SimpleDateFormat formatter = new SimpleDateFormat("ddMMYYYY"); //TODO: fix this, keys not sent
+        Date date = new Date();
+        return formatter.format(date);
+    }
 
     @Test(priority = 0)
-    public void openRestaurantsHomePage() {
+    public void openLoginPage() {
         new HomePage(driver)
                 .clickLoginButton(2);
     }
@@ -36,13 +44,13 @@ public class MakeReservation extends TestBase {
         SimpleDateFormat formatter = new SimpleDateFormat("ddMMHHmm");
         Date date = new Date();
         new Registration(driver)
-                .makeRegistration(FIRST_NAME, LAST_NAME, formatter.format(date)+EMAIL, PHONE_NUMBER, ADDRESS, PASSWORD, PASSWORD);
+                .makeRegistration(FIRST_NAME, LAST_NAME, formatter.format(date) + EMAIL, PHONE_NUMBER, ADDRESS, PASSWORD, PASSWORD);
     }
 
     @Test(priority = 3)
-    public void checkUserIsRegistered(){
+    public void checkUserIsRegistered() {
         Assert.assertTrue(new HomePage(driver)
-        .checkMainText(HEADER_TEXT));
+                .checkMainText(HEADER_TEXT));
     }
 
     @Test(priority = 4)
@@ -58,7 +66,7 @@ public class MakeReservation extends TestBase {
     }
 
     @Test(priority = 6)
-    public void openHomePage() {
+    public void openLoginPageAgain() {
         new HomePage(driver)
                 .clickLoginButton(2);
     }
@@ -68,10 +76,11 @@ public class MakeReservation extends TestBase {
         SimpleDateFormat formatter = new SimpleDateFormat("ddMMHHmm");
         Date date = new Date();
         new LoginPage(driver)
-                .loginToRestaurants(formatter.format(date)+EMAIL, PASSWORD);
+                .loginToRestaurants(formatter.format(date) + EMAIL, PASSWORD);
     }
+
     @Test(priority = 8)
-    public void checkUserLoginIsSuccessful(){
+    public void checkUserLoginIsSuccessful() {
         Assert.assertTrue(new HomePage(driver)
                 .checkMainText(HEADER_TEXT));
     }
@@ -80,6 +89,18 @@ public class MakeReservation extends TestBase {
     public void openRestaurantsPage() {
         new HomePage(driver)
                 .openRestaurantsPage(1);
+    }
+
+    @Test(priority = 10)
+    public void openRestaurantDetailsPage() {
+        new Restaurants(driver)
+                .clickReserveNowButton();
+    }
+
+    @Test(priority = 11)
+    public void makeAReservation() {
+        System.out.println("Date:" + DATE_OF_RESERVATION);
+        new RestaurantPage(driver).findTable(NUMBER_OF_PERSONS, DATE_OF_RESERVATION, TIME_OF_RESERVATION);
     }
 
 }
