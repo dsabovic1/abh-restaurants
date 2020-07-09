@@ -45,11 +45,13 @@ Router.map(function() {
     });
 
     this.route("settings");
+    this.route('activity-log');
   });
 
   this.route("reservation-details", {
     path: "reservation-details/:id"
   });
+  this.route('activity-log');
 });
 
 export default Router;

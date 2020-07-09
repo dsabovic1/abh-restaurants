@@ -42,7 +42,7 @@
   margin: 0;
   padding: 12px 25px 14px;
   text-decoration: none;
-  background-color: tomato;
+  background-color: #fd6f60;
 }
 
 .user-page-bar-navigation-item a {
@@ -150,7 +150,6 @@
   clear: both;
 }
 
-
 .admin-tabs {
   display: block;
   border-radius: 3px;
@@ -196,11 +195,13 @@
 }
 
 .admin-tabs li.active a {
-  border-bottom-color:  #ddd;
+  border-bottom-color: #ddd;
 }
 
 .admin-tabs {
-  .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+  .nav-tabs > li.active > a,
+  .nav-tabs > li.active > a:hover,
+  .nav-tabs > li.active > a:focus {
     border-width: 0;
   }
 }
@@ -518,7 +519,7 @@
   outline: none;
   border: none;
   background-color: transparent;
-  color: tomato;
+  color: #fd6f60;
   margin-left: 5px;
 }
 

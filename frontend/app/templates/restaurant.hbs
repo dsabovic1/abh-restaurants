@@ -140,6 +140,14 @@
               About
               {{model.restaurant.name}}
             </h2>
+
+            <!--Google map-->
+            <div id="map-container-google-1">
+              <iframe class="restaurant-map"
+                src="https://maps.google.com/maps?q={{model.restaurant.latitude}},{{model.restaurant.longitude}}&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                frameborder="0" allowfullscreen></iframe>
+            </div>
+            <!--Google Maps-->
             <h5 class="restaurant-card-subtitle">
               Description
             </h5>
@@ -166,13 +174,6 @@
             {{/ui/tab-pane-content}}
             {{/ui/tab-pane}}
           </div>
-          <!--Google map-->
-          <div id="map-container-google-1">
-            <iframe class="restaurant-map"
-              src="https://maps.google.com/maps?q={{model.restaurant.latitude}},{{model.restaurant.longitude}}&t=&z=13&ie=UTF8&iwloc=&output=embed"
-              frameborder="0" allowfullscreen></iframe>
-          </div>
-          <!--Google Maps-->
         </div>
       </div>
     </div>
