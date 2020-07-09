@@ -16,7 +16,7 @@ export default Controller.extend({
         page: 0,
         name: this.get("restaurant_name"),
         people: this.get("number_of_people"),
-        time: toDate(this.get("date"), this.get("time")).getTime()
+        time: toDate(this.get("date"), this.get("time")).getTime(),
       };
       this.transitionToRoute("search-results", { queryParams: filters });
     },
@@ -27,6 +27,6 @@ export default Controller.extend({
         "number_of_people",
         selectBox.options[selectBox.selectedIndex].value
       );
-    }
-  }
+    },
+  },
 });

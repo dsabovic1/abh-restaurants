@@ -7,16 +7,16 @@ export default Route.extend({
 
   queryParams: {
     page: {
-      refreshModel: true
-    }
+      refreshModel: true,
+    },
   },
 
   model(params) {
     return hash({
       restaurants: this.get("restaurantService").findAllRestaurants({
         page: params.page,
-        size: 15
-      })
+        size: 15,
+      }),
     });
-  }
+  },
 });

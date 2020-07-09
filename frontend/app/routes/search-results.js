@@ -7,25 +7,38 @@ export default Route.extend({
 
   queryParams: {
     restaurantName: {
-      refreshModel: true
+      refreshModel: true,
     },
     numberOfPeople: {
-      refreshModel: true
+      refreshModel: true,
     },
     time: {
-      refreshModel: true
+      refreshModel: true,
     },
     page: {
-      refreshModel: true
-    }
+      refreshModel: true,
+    },
   },
 
   model(params) {
     return hash({
-      restaurants: this.get("restaurantService").findAllRestaurants({
-        page: params.page,
-        name: params.restaurantName
-      })
+      restaurants: this.get("restaurantService")
+        .findAllRestaurants({
+          page: params.page,
+          name: params.restaurantName,
+        })
+        .then((results) => {
+          let res = [];
+          results.content.forEach((element) => {
+            if (element.name == params.restaurantName) {
+              res.push(element);
+            }
+          });
+          console.log(res);
+          results.content = res;
+          console.log(results);
+          return results;
+        }),
     });
-  }
+  },
 });

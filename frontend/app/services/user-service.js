@@ -31,5 +31,5 @@ export default BaseService.extend({
 
   delete(id) {
     return this.delete(`/api/v1/users/${id}`);
-  }
+  },
 });
