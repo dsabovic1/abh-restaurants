@@ -26,17 +26,51 @@ public class RestaurantSpecification implements Specification<Restaurant> {
   @Override
   public Predicate toPredicate(
       Root<Restaurant> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
-   /* Predicate pricePredicate=null;
+
+      Predicate pricePredicate=null;
     Predicate ratePredicate=null;
-    Predicate cuisinePredicate=null;
+    Predicate namePredicate=null;
 
-   if (filter.getPrice()!=null)  pricePredicate=builder.equal(root.get("priceRange"), filter.getPrice());
-   if (filter.getRating()!=null) ratePredicate=builder.equal(root.get("averageRating"), filter.getRating());
-   //System.out.println( root.get("cuisines"));
-    //if (filter.getCuisine()!=null) ratePredicate=builder.equal(root.get("cuisines"), filter.getCuisine());
+    Long rating= Long.valueOf(0);
 
-    Predicate finalPredicate=builder.and(pricePredicate, ratePredicate);*/
- return null;
+
+
+
+   if(filter.getPrice()!=null && filter.getRating()!=null) {
+       pricePredicate=builder.equal(root.get("priceRange"), filter.getPrice());
+       rating=filter.getRating();
+       ratePredicate=builder.equal(root.get("averageRating"), rating);
+       if (filter.getName()!=null && !filter.getName().isEmpty()) {
+           namePredicate = builder.equal(root.get("name"), filter.getName());
+           return builder.and(pricePredicate, ratePredicate, namePredicate);
+       }
+       return builder.and(pricePredicate, ratePredicate);
+   }
+   else if (filter.getPrice()!=null) {
+       pricePredicate=builder.equal(root.get("priceRange"), filter.getPrice());
+       if (filter.getName()!=null && !filter.getName().isEmpty()) {
+           namePredicate = builder.equal(root.get("name"), filter.getName());
+           return builder.and(pricePredicate, namePredicate);
+       }
+       return pricePredicate;
+   }
+   else if (filter.getRating()!=null) {
+       rating=filter.getRating();
+       ratePredicate=builder.equal(root.get("averageRating"), rating);
+       if (filter.getName()!=null && !filter.getName().isEmpty()) {
+           namePredicate = builder.equal(root.get("name"), filter.getName());
+           return builder.and(ratePredicate, namePredicate);
+       }
+       return ratePredicate;
+   }
+   else {
+       if (filter.getName()!=null && !filter.getName().isEmpty()) {
+           namePredicate = builder.equal(root.get("name"), filter.getName());
+           return namePredicate;
+       }
+       else return null;
+   }
+
   }
 
   /**
