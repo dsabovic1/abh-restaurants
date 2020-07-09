@@ -12,13 +12,15 @@ export default Route.extend({
     },
   },
 
-  model() {
+  model(params) {
     return hash({
-      activitylogs: this.get("activitylogsService")
-        .fetchAllLogs({})
+      newLog: this.get("activitylogsService")
+        .create({
+          params,
+        })
         .then((results) => {
           console.log(results);
-          return results;
+          return results.totalElements;
         }),
     });
   },

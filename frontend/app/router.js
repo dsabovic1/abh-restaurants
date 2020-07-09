@@ -46,6 +46,7 @@ Router.map(function() {
 
     this.route("settings");
     this.route('activity-log');
+    this.route('activity-log-new');
   });
 
   this.route("reservation-details", {
