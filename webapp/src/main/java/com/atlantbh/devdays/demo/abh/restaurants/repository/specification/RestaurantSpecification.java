@@ -17,36 +17,45 @@ import org.springframework.data.jpa.domain.Specification;
  * Restaurant filter specification.
  */
 public class RestaurantSpecification implements Specification<Restaurant> {
-    private RestaurantFilter filter;
+  private RestaurantFilter filter;
 
-    /**
-     * Instantiates a new restaurant specification.
-     *
-     * @param filter Filter.
-     */
-    public RestaurantSpecification(RestaurantFilter filter) {
-        this.filter = filter;
-    }
+  /**
+   * Instantiates a new restaurant specification.
+   *
+   * @param filter Filter.
+   */
+  public RestaurantSpecification(RestaurantFilter filter) {
+    this.filter = filter;
+  }
 
-    @Override
-    public Predicate toPredicate(
-            Root<Restaurant> root, CriteriaQuery<?> criteria, CriteriaBuilder builder) {
-        if (filter.getPrice() != null) return builder.equal(root.get("priceRange"), filter.getPrice());
-        return null;
-    }
+  @Override
+  public Predicate toPredicate(
+      Root<Restaurant> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
+   /* Predicate pricePredicate=null;
+    Predicate ratePredicate=null;
+    Predicate cuisinePredicate=null;
 
-    /**
-     * Create a page object from filter.
-     *
-     * @param filter Filter.
-     * @return Page object.
-     */
-    public static Pageable createPage(RestaurantFilter filter) {
-        RestaurantFilter.Sort sortProperty = filter.getSortBy();
-        return PageRequest.of(
-                filter.getPage(),
-                filter.getPageSize(),
-                sortProperty.getDirection(),
-                sortProperty.getPropertyName());
-    }
+   if (filter.getPrice()!=null)  pricePredicate=builder.equal(root.get("priceRange"), filter.getPrice());
+   if (filter.getRating()!=null) ratePredicate=builder.equal(root.get("averageRating"), filter.getRating());
+   //System.out.println( root.get("cuisines"));
+    //if (filter.getCuisine()!=null) ratePredicate=builder.equal(root.get("cuisines"), filter.getCuisine());
+
+    Predicate finalPredicate=builder.and(pricePredicate, ratePredicate);*/
+ return null;
+  }
+
+  /**
+   * Create a page object from filter.
+   *
+   * @param filter Filter.
+   * @return Page object.
+   */
+  public static Pageable createPage(RestaurantFilter filter) {
+    RestaurantFilter.Sort sortProperty = filter.getSortBy();
+    return PageRequest.of(
+        filter.getPage(),
+        filter.getPageSize(),
+        sortProperty.getDirection(),
+        sortProperty.getPropertyName());
+  }
 }

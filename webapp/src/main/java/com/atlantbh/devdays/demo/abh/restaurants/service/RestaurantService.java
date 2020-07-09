@@ -97,7 +97,11 @@ public class RestaurantService extends BaseCrudService<Restaurant, Long, Restaur
     final Page<Restaurant> restaurants =
         repository.findAll(new RestaurantSpecification(filter), pageRequest);
 
-    System.out.println(filter.getPrice());
+    //System.out.println(filter.getPrice());
+    //System.out.println(filter.getRating());
+    //System.out.println(filter.getCuisine());
+    //System.out.println(filter.getName());
+
     return transformPage(restaurants, pageRequest);
   }
 
