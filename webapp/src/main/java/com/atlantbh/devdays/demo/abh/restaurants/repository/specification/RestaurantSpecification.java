@@ -25,9 +25,18 @@ public class RestaurantSpecification implements Specification<Restaurant> {
 
   @Override
   public Predicate toPredicate(
-      Root<Restaurant> root, CriteriaQuery<?> criteria, CriteriaBuilder builder) {
-   if (filter.getPrice()!=null) return builder.equal(root.get("priceRange"), filter.getPrice());
-return null;
+      Root<Restaurant> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
+   /* Predicate pricePredicate=null;
+    Predicate ratePredicate=null;
+    Predicate cuisinePredicate=null;
+
+   if (filter.getPrice()!=null)  pricePredicate=builder.equal(root.get("priceRange"), filter.getPrice());
+   if (filter.getRating()!=null) ratePredicate=builder.equal(root.get("averageRating"), filter.getRating());
+   //System.out.println( root.get("cuisines"));
+    //if (filter.getCuisine()!=null) ratePredicate=builder.equal(root.get("cuisines"), filter.getCuisine());
+
+    Predicate finalPredicate=builder.and(pricePredicate, ratePredicate);*/
+ return null;
   }
 
   /**
