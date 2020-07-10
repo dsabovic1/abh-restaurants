@@ -444,6 +444,7 @@ public class Restaurant {
    * @param latitude the latitude
    */
   public void setLatitude(Float latitude) {
+    if (latitude == null) latitude = Float.valueOf(0);
     this.latitude = latitude;
   }
 
@@ -462,6 +463,7 @@ public class Restaurant {
    * @param longitude the longitude
    */
   public void setLongitude(Float longitude) {
+    if (longitude == null) longitude = Float.valueOf(0);
     this.longitude = longitude;
   }
 

@@ -19,7 +19,6 @@ public class HomePage extends PageBase {
         initElements();
     }
 
-
     @FindBy(css = NAV_BAR_LIST_CSS)
     private List<WebElement> navBarList;
 
@@ -48,6 +47,11 @@ public class HomePage extends PageBase {
     public UserDetails clickUserDetails(int index){
         getNavBarList().get(index).click();
         return new UserDetails(getDriver());
+    }
+
+    public AdminPage clickAdminPage(int index){
+        getNavBarList().get(index).click();
+        return new AdminPage(getDriver());
     }
 
     public Boolean checkMainText(String headerText){
