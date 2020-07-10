@@ -8,11 +8,10 @@ import java.util.concurrent.TimeUnit;
 
 public abstract class TestBase {
     protected WebDriver driver;
-    String browser = "firefox"; String url="https://abh-restaurants-dev-days.herokuapp.com/";
 
     @BeforeTest(alwaysRun = true)
     @Parameters({"browser", "url"})
-    public void setUp() { //String browser, String url
+    public void setUp(String browser, String url) {
         DriverSupport driverSupport = new DriverSupport();
         driver = driverSupport.initDriver(browser);
         driver.get(url);
@@ -20,6 +19,6 @@ public abstract class TestBase {
 
     @AfterTest(alwaysRun = true)
     public void tearDown() {
-       // driver.quit();
+        driver.quit();
     }
 }
