@@ -25,13 +25,13 @@ export default Component.extend({
 
     const reservationRequest = {
       numberOfPeople,
-      date: new Date(time)
+      date: new Date(time),
     };
 
     this.get("restaurantService")
       .reservationInquiry(restaurantId, reservationRequest)
-      .then(response => this.set("inquiryResponse", response))
-      .catch(error => {
+      .then((response) => this.set("inquiryResponse", response))
+      .catch((error) => {
         this.set("hasError", true);
         this.set("errorMessage", error.errors[0].title);
       });
@@ -44,6 +44,6 @@ export default Component.extend({
       const time = this.get("time");
 
       this.get("onReserve")(restaurantId, numberOfPeople, time, selectedTime);
-    }
-  }
+    },
+  },
 });

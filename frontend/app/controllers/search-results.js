@@ -19,14 +19,14 @@ export default Controller.extend({
     onReserve(restaurantId, numberOfPeople, time) {
       const reservationRequest = {
         numberOfPeople,
-        date: new Date(time),
+        date: new Date(parseInt(time)),
       };
 
       this.get("restaurantService")
         .createReservation(restaurantId, reservationRequest)
-        .then((response) =>
-          this.transitionToRoute("reservation-details", response.id)
-        );
+        .then((response) => {
+          this.transitionToRoute("reservation-details", response.id);
+        });
     },
   },
 });

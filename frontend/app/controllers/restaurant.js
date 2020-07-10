@@ -73,9 +73,9 @@ export default Controller.extend({
 
       this.get("restaurantService")
         .createReservation(this.get("restaurantId"), reservationRequest)
-        .then((response) =>
-          this.transitionToRoute("reservation-details", response.id)
-        );
+        .then((response) => {
+          this.transitionToRoute("reservation-details", response.id);
+        });
     },
   },
 });
