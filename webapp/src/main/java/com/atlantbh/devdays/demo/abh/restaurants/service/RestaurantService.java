@@ -199,7 +199,9 @@ public class RestaurantService extends BaseCrudService<Restaurant, Long, Restaur
     restaurant.setName(request.getName());
     restaurant.setDescription(request.getDescription());
     restaurant.setAddress(request.getAddress());
-    restaurant.setCity(cityService.get(request.getCityId()));
+    Long cityId = request.getCityId();
+    if (cityId == null)  cityId = Long.valueOf(1);
+    restaurant.setCity(cityService.get(cityId));
     restaurant.setCoverImagePath(request.getCoverImagePath());
     restaurant.setLatitude(request.getLatitude());
     restaurant.setLongitude(request.getLongitude());
