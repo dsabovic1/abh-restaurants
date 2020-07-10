@@ -125,7 +125,15 @@ public class RestaurantController {
   @Transactional
   @PutMapping("{id}")
   public Restaurant update(@PathVariable("id") Long id, @RequestBody RestaurantRequest request)
-      throws EntityNotFoundServiceException {
+          throws EntityNotFoundServiceException {
+    return service.update(id, request);
+  }
+
+  @Transactional
+  @PutMapping("/updateReview/{id}")
+  public Restaurant updateReview(@PathVariable("id") Long id, @RequestBody RestaurantRequest request)
+          throws EntityNotFoundServiceException {
+    service.updateRestaurantRating(id);
     return service.update(id, request);
   }
 }
