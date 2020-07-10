@@ -13,9 +13,13 @@
   <div class="row">
     <div class="col-xs-12">
       {{misc/google-map
+      marker=marker
         polygon=polygon
         bounds=model.location.bounds
         editableBounds=true
+              markerLat=42
+              markerLng=20
+              editableMarker=true
       }}
     </div>
   </div>
@@ -25,7 +29,7 @@
         "admin.locations"
         class="form-button form-button-small form-button-grey"
       }}
-        Cancel
+      Cancel
       {{/link-to}}
       <button class="form-button form-button-small" type="submit">
         {{if model.isEdit "Edit" "Add"}}
